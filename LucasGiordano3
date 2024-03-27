@@ -1,0 +1,17 @@
+#include<stdio.h>
+#include <stdlib.h>
+
+int main (){
+    int a,b,c;
+    for(a=1; a<87;a++){
+    b= a-1;
+    c=b-1;
+    // printf("%d",a);
+    // printf("los numeros son :%d %d %d",a,b,c);
+    if((a+b+c)==87){
+        printf("los numeros son :%d %d %d",a,b,c);
+    };
+
+    };
+    return 0;
+};
