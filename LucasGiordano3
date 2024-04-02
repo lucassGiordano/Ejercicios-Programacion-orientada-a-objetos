@@ -1,19 +1,140 @@
 #include<stdio.h>
-#include <stdlib.h>
+#include<stdlib.h>
 
-int main (){
-    int a,b,c;
-    for(a=1; a<87;a++){
-    b= a-1;
-    c=b-1;
-    // printf("%d",a);
-    // printf("los numeros son :%d %d %d",a,b,c);
-    if((a+b+c)==87){
-        printf("los numeros son :%d %d %d",a,b,c);
-    };
+int main() {
+    int opcion;
 
-    };
+    printf("Ingrese la opción deseada:\n");
+    printf("1. Calcular suma de números hasta 87.\n");
+    printf("2. Calcular media de tres números.\n");
+    printf("3. Determinar si un número es par o impar.\n");
+    printf("4. Determinar si un alumno aprobó o no la materia.\n");
+    printf("5. Determinar si una nota está aprobada o reprobada, con mensaje adicional.\n");
+    printf("6. Calcular impuesto por concepto de alquiler.\n");
+    printf("7. Convertir hora en formato de 24 horas a formato de 12 horas.\n");
+    scanf("%d", &opcion);
+
+    switch(opcion) {
+        case 1: {
+            int a, b, c;
+            for(a = 1; a < 87; a++) {
+                b = a - 1;
+                c = b - 1;
+                if((a + b + c) == 87) {
+                    printf("Los números son: %d %d %d\n", a, b, c);
+                }
+            }
+            break;
+        }
+        case 2: {
+            int num1, num2, num3;
+            float media;
+            scanf("%d", &num1);
+            scanf("%d", &num2);
+            scanf("%d", &num3);
+
+            media = (num1 + num2 + num3) / 3.0;
+
+            printf("La media de los tres números es: %.2f\n", media);
+            break;
+        }
+        case 3: {
+            int numero;
+            scanf("%d", &numero);
+            if (numero > 0) {
+                if (numero % 2 == 0) {
+                    printf("%d es un número par.\n", numero);
+                } else {
+                    printf("%d es un número impar.\n", numero);
+                }
+            } else {
+                printf("Debe ser positivo y mayor que cero.\n");
+            }
+            break;
+        }
+        case 4: {
+            int nota1, nota2, nota3, nota4, tarea;
+            float promedio;
+            scanf("%d", &nota1);
+            scanf("%d", &nota2);
+            scanf("%d", &nota3);
+            scanf("%d", &nota4);
+            scanf("%d", &tarea);
+
+            promedio = (nota1 + nota2 + nota3 + nota4 + tarea) / 5.0;
+
+            if (promedio >= 6) {
+                printf("El alumno ha aprobado la materia.\n");
+            } else {
+                printf("El alumno ha reprobado la materia.\n");
+            }
+            break;
+        }
+        case 5: {
+            int nota;
+            scanf("%d", &nota);
+
+            if (nota >= 6) {
+                printf("Aprobado");
+                if (nota >= 8) {
+                    printf(". Felicitaciones");
+                }
+                printf("\n");
+            } else if (nota == 1) {
+                printf("Debes esforzarte más\n");
+            } else {
+                printf("Reprobado\n");
+            }
+            break;
+        }
+        case 6: {
+            float alquiler;
+            float impuesto;
+
+            printf("Ingrese el monto del alquiler: ");
+            scanf("%f", &alquiler);
+
+            if (alquiler <= 202) {
+                impuesto = 0;
+            } else if (alquiler <= 607) {
+                impuesto = alquiler * 0.05; // 5%
+            } else if (alquiler <= 1013) {
+                impuesto = alquiler * 0.1; // 10%
+            } else if (alquiler <= 1418) {
+                impuesto = alquiler * 0.15; // 15%
+            } else {
+                impuesto = alquiler * 0.25; // 25%
+            }
+
+            printf("El impuesto sobre el alquiler es: %.2f\n", impuesto);
+            break;
+        }
+        case 7: {
+            int hora, minutos;
+            char periodo[3];
+
+            printf("Ingrese la hora en formato hh:mm (24 horas): ");
+            scanf("%d:%d", &hora, &minutos);
+
+            if (hora >= 12) {
+                sprintf(periodo, "PM");
+                if (hora > 12) {
+                    hora -= 12;
+                }
+            } else {
+                sprintf(periodo, "AM");
+                if (hora == 0) {
+                    hora = 12;
+                }
+            }
+
+            printf("La hora en formato 12 horas es: %02d:%02d %s\n", hora, minutos, periodo);
+            break;
+        }
+        default:
+            printf("Opción no válida.\n");
+            break;
+    }
+
     return 0;
-};
-
-
+}
