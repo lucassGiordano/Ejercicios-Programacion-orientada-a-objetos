@@ -135,6 +135,18 @@ int main() {
             printf("Opción no válida.\n");
             break;
     }
+case 8: {
+    int main(){
+	float plata ;
+	scanf("%f",&plata);
+	printf("va a obtener %f",(plata*1.20));
+	return 0;
+    };
+        }
+        default:
+            printf("Opción no válida.\n");
+            break;
+    }
 
     return 0;
 }
