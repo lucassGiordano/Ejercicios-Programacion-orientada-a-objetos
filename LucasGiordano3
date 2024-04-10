@@ -131,18 +131,12 @@ int main() {
             printf("La hora en formato 12 horas es: %02d:%02d %s\n", hora, minutos, periodo);
             break;
         }
-        default:
-            printf("Opción no válida.\n");
-            break;
-    }
 case 8: {
-    int main(){
 	float plata ;
 	scanf("%f",&plata);
 	printf("va a obtener %f",(plata*1.20));
 	return 0;
-    };
-        }
+    }
 case 9:{
         
 	getchar();
@@ -166,6 +160,74 @@ case 9:{
 		scanf("%d",&seg);
 		seg = seg + horas*3600 + min*60;
 		printf("segundos totales %d",seg);		
+	break;
+	}
+	case 11:{
+		float nota1_1;	
+		float nota1_2;	
+		float nota1_3;
+		float nota2;
+		float nota3;
+		scanf("%f",&nota1_1);
+		scanf("%f",&nota1_2);
+		scanf("%f",&nota1_3);
+		scanf("%f",&nota2);
+		scanf("%f",&nota3);
+		float promed=(nota1_1+nota1_2+nota1_3)/3.0;
+		float nota_final= (promed*0.55) + (nota2*0.30) + (nota3*0.15);	
+		printf("nota final %.2f",nota_final);
+	break;
+	}
+	case 12:{
+	     		int SB;
+                int V1;
+                int V2;
+                int V3;
+                printf("Ingrese el sueldo base: ");
+                scanf("%d", &SB);
+                printf("Ingrese cantidad de venta 1: ");
+                scanf("%d", &V1);
+                printf("Ingrese cantidad de venta 2: ");
+                scanf("%d", &V2);
+                printf("Ingrese cantidad de venta 3: ");
+                scanf("%d", &V3);
+                int comision = (V1 + V2 + V3) * 0.10;
+                printf("Van a pagar %d\n", SB + comision);
+                getchar();	
+	break;
+	}
+	case 13:{
+		float compra;	
+		scanf("%f",&compra);
+		printf("precio final: %f",(compra-compra*0.15));
+	break;
+	}
+	case 14:{	
+	int num;
+	scanf("%d",&num);
+	if (num<0){
+	num =num *-1;
+	}
+	printf("%d",num);
+	break;
+	}
+	case 15:{
+		float muj;
+		float hom;
+		scanf("%d",&muj);
+		scanf("%d",&hom);
+		float total= muj+ hom;
+		float porH= (hom/(hom+muj))*100;
+		float porM= (muj/(hom+muj))*100;
+
+		printf("porcentaje hombre:%.2f%%",porH);
+	break;
+	}
+		case 16:{
+		
+	break;
+	}
+	case 0:{	
 	break;
 	}
         default:
