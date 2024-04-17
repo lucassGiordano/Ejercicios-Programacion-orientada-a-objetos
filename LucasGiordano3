@@ -1,6 +1,19 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+int raiz(float num){
+	for(int i=1; i< num/2;i++){
+		if(i*i== num)return i;
+	};
+};
+
+int elevado(float num1,float num2){
+	float ret= num1;
+	for(int i=2;i<=num2;i++){
+		ret *=num1;
+	};
+	return ret;
+};
 int main() {
     int opcion;
 
@@ -224,6 +237,13 @@ case 9:{
 	break;
 	}
 		case 16:{
+	float a,b,c;
+	printf("primera medida y segunda :");
+	scanf("%f",&a);
+	scanf("%f",&a);
+	c= raiz(elevado(a,2)+elevado(b,2));
+	printf("el tercer lado es: %f",c);
+}
 		
 	break;
 	}
