@@ -14,8 +14,8 @@ int main(){
     srand(time(NULL));
     int wins[5][4];
     int e,em;
-    int ju=0, m=0, emp=0; // Aquí se inicializan j, m y emp
-    int i; // Declaración de i fuera del bucle
+    int ju=0, m=0, emp=0; // AquÃ­ se inicializan j, m y emp
+    int i; // DeclaraciÃ³n de i fuera del bucle
 	int j;
 	
     for(i=0; i<5; i++){
