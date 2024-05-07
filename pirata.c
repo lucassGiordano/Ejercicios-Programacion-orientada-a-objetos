@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
-
 int main(){
 	srand(time(NULL));
 	char map[8][8];
@@ -36,24 +35,44 @@ int main(){
 	};
 	printf("elegir: N, S, E, O\n");
 	scanf("%c",&opc);
+	getchar();
 	switch(opc){
 	case'N':{
 		pc-=1;
+		if(map[pc][pf]=='0'){
+		printf("Caiste al agua :(");
+		getchar();
+		return 0;
+		};
 		map[pc][pf]='*';
 		break;
 	};
 	case 'S':{
-		pc+=1;
+		pc+=1;if(map[pc][pf]=='0'){
+		printf("Caiste al agua :(");
+		getchar();
+		return 0;
+		};
 		map[pc][pf]='*';
 		break;
 	};
 	case 'E':{
 		pf-=1;
+		if(map[pc][pf]=='0'){
+		printf("Caiste al agua :(");
+		getchar();
+		return 0;
+		};
 		map[pc][pf]='*';
 		break;
 	};
 	case 'O':{
 		pf+=1;
+		if(map[pc][pf]=='0'){
+		printf("Caiste al agua :(");
+		getchar();
+		return 0;
+		};
 		map[pc][pf]='*';
 		break;
 	};
@@ -64,11 +83,6 @@ int main(){
 	getchar();
 	return 0;
 	};
-	
-	if(map[pc][pf]=='0'){
-	printf("Caiste al agua :(");
-	getchar();
-	return 0;
-	};
+	system("cls");
 	};
 }
