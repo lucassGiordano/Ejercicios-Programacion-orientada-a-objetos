@@ -106,4 +106,6 @@ int main(){
 	system("cls");
 	intentos++;
 	};
+	printf("llegaste a los 50 intentos!");
+	return 0;
 }
