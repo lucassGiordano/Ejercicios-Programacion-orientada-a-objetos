@@ -1,12 +1,27 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
+//color ?
+#include <windows.h>
+void setColor(int color) {
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
+
+void setkolor(int textColor, int bgColor) {
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), textColor | bgColor);
+}
+
 int main(){
 	srand(time(NULL));
 	char map[8][8];
 	int i;
 	int j;
 	int intentos=0;
+	
+	
+	// Texto en blanco brillante sobre fondo azul
+    setkolor(FOREGROUND_BLUE, BACKGROUND_BLUE);
+
 	//genera la matriz donde va a estar la tierra
 		for( i=0;i<8;i++){
 			for( j=0;j<8;j++){
@@ -35,15 +50,23 @@ int main(){
 		char opc;
 		for( i=0;i<8;i++){
 			for( j=0;j<8;j++){
-				if(map[i][j]!= 'T'){
+				if (map[i][j] == '0') {
+                setkolor(FOREGROUND_BLUE,BACKGROUND_BLUE); // Cambiar a azul
+                printf("%c ", map[i][j]);
+                setColor(15); // Restablecer al color normal
+            	}else if (map[i][j] == 'P') {
+                setColor(5); // Cambiar a azul
+                printf("%c ", map[i][j]);
+                setColor(15); // Restablecer al color normal
+            	}else if(map[i][j]!= 'T'){
 				printf("%c ",map[i][j]);
-				} else{
+				} else {
 					printf("x ");
 				}
 
 			};
 			printf("\n");
-	};
+	};	
 	//acá se puede elegir donde podra ir el pirata
 	printf("elegir: N, S, E, O\n");
 	scanf("%c",&opc);
