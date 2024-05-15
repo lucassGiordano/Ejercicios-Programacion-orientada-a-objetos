@@ -6,6 +6,7 @@ int main(){
 	char map[8][8];
 	int i;
 	int j;
+	int intentos=0;
 	//genera la matriz donde va a estar la tierra
 		for( i=0;i<8;i++){
 			for( j=0;j<8;j++){
@@ -29,12 +30,17 @@ int main(){
 	if(i==0){map[c][f]='T'; tc=c; tf= f;}else
 	{map[c][f]='P'; pc=c; pf= f;};
 	};
-	while(1){
+	while(intentos<50){
 		//aca se imprimirian el pirata y el tesoro
 		char opc;
 		for( i=0;i<8;i++){
 			for( j=0;j<8;j++){
+				if(map[i][j]!= 'T'){
 				printf("%c ",map[i][j]);
+				} else{
+					printf("x ");
+				}
+
 			};
 			printf("\n");
 	};
@@ -98,5 +104,6 @@ int main(){
 	};
 	//esto limpiara cmd y nada mas quedara lo que se alla hecho recientemente
 	system("cls");
+	intentos++;
 	};
 }
