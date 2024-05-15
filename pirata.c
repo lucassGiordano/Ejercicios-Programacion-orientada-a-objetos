@@ -3,11 +3,7 @@
 #include<time.h>
 //color ?
 #include <windows.h>
-void setColor(int color) {
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
-}
-
-void setkolor(int textColor, int bgColor) {
+void setColor(int textColor, int bgColor) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), textColor | bgColor);
 }
 
@@ -20,7 +16,6 @@ int main(){
 	
 	
 	// Texto en blanco brillante sobre fondo azul
-    setkolor(FOREGROUND_BLUE, BACKGROUND_BLUE);
 
 	//genera la matriz donde va a estar la tierra
 		for( i=0;i<8;i++){
@@ -51,17 +46,21 @@ int main(){
 		for( i=0;i<8;i++){
 			for( j=0;j<8;j++){
 				if (map[i][j] == '0') {
-                setkolor(FOREGROUND_BLUE,BACKGROUND_BLUE); // Cambiar a azul
+                setColor(FOREGROUND_BLUE,BACKGROUND_BLUE); // Cambiar a azul
                 printf("%c ", map[i][j]);
-                setColor(15); // Restablecer al color normal
+                setColor(15,0); // Restablecer al color normal
             	}else if (map[i][j] == 'P') {
-                setColor(5); // Cambiar a azul
+                setColor(5,224); // Cambiar a azul
                 printf("%c ", map[i][j]);
-                setColor(15); // Restablecer al color normal
+                setColor(15,0); // Restablecer al color normal
             	}else if(map[i][j]!= 'T'){
+            	setColor(224,224);
 				printf("%c ",map[i][j]);
+				setColor(15,0);
 				} else {
+					setColor(224,224); // Cambiar a azul
 					printf("x ");
+					setColor(0,0);
 				}
 
 			};
