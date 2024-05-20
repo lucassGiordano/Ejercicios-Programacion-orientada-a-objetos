@@ -1,133 +1,124 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
-//color ?
 #include <windows.h>
+
 void setColor(int textColor, int bgColor) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), textColor | bgColor);
 }
 
-int main(){
-	srand(time(NULL));
-	char map[8][8];
-	int i;
-	int j;
-	int intentos=0;
-	
-	
-	// Texto en blanco brillante sobre fondo azul
+void generarIsla(char map[8][8]){
+    int i, j;
+    for(i = 0; i < 8; i++){
+        for(j = 0; j < 8; j++){
+            map[i][j] = 'x';
+        }
+    }
+    for(i = 0; i < 8; i++){
+        map[0][i] = '0';
+        map[7][i] = '0';
+        map[i][0] = '0';
+        map[i][7] = '0';
+    }
+}
 
-	//genera la matriz donde va a estar la tierra
-		for( i=0;i<8;i++){
-			for( j=0;j<8;j++){
-				map[i][j]='x';
-			};
-	//genera lo que vendria a ser el agua
-	};
-	for(i=0; i<8 ;i++){
-		map[0][i]='0';
-		map[7][i]='0';
-		map[i][0]='0';
-		map[i][7]='0';
-	
-	};
-	int pc,pf;
-	int tc,tf;
-	//aca se definirian las posiciones del tesoro y el pirata en un lugar aleatorio
-	for( i=0;i<2;i++){
-	int c=(rand()%6)+1;
-	int f=(rand()%6)+1;	
-	if(i==0){map[c][f]='T'; tc=c; tf= f;}else
-	{map[c][f]='P'; pc=c; pf= f;};
-	};
-	while(intentos<50){
-		//aca se imprimirian el pirata y el tesoro
-		char opc;
-		for( i=0;i<8;i++){
-			for( j=0;j<8;j++){
-				if (map[i][j] == '0') {
+void imprimirIsla(char map[8][8], int pc, int pf, int tc, int tf){
+    int i, j;
+    for(i = 0; i < 8; i++){
+        for(j = 0; j < 8; j++){
+            if (map[i][j] == '0') {
                 setColor(FOREGROUND_BLUE,BACKGROUND_BLUE); // Cambiar a azul
                 printf("%c ", map[i][j]);
                 setColor(15,0); // Restablecer al color normal
-            	}else if (map[i][j] == 'P') {
-                setColor(5,224); // Cambiar a azul
+            }
+            else if (i == pc && j == pf) {
+                setColor(5,224); // Cambiar a MORADO
                 printf("%c ", map[i][j]);
                 setColor(15,0); // Restablecer al color normal
-            	}else if(map[i][j]!= 'T'){
-            	setColor(224,224);
-				printf("%c ",map[i][j]);
-				setColor(15,0);
-				} else {
-					setColor(224,224); // Cambiar a azul
-					printf("x ");
-					setColor(0,0);
-				}
+            }
+            else if (map[i][j] == 'T') {
+                setColor(14,224); // Cambiar a AMARILLO
+                printf("x ");
+                setColor(15,0); // Restablecer al color normal
+            }
+            else if (map[i][j] == '*'||map[i][j] == 'P'){
+                setColor(0,224);
+                printf("%c ",map[i][j]);
+                setColor(15,0);
+            }else{
+              setColor(14,224);
+                printf("%c ",map[i][j]);
+                setColor(15,0);
+            }
+        }
+        printf("\n");
+    }
+}
 
-			};
-			printf("\n");
-	};	
-	//acá se puede elegir donde podra ir el pirata
-	printf("elegir: N, S, E, O\n");
-	scanf("%c",&opc);
-	getchar();
-	switch(opc){
-	case'N':{
-		pc-=1;
-		/*if(map[pc][pf]=='0'){
-		printf("Caiste al agua :(");
-		getchar();
-  		esto hara que si el usuario al moverse a tal direccion se va al agua 
-    		pierde el juego*/
-		if(map[pc][pf]=='0'){
-		printf("Caiste al agua :(");
-		getchar();
-		return 0;
-		};
-		map[pc][pf]='*';
-		break;
-	};
-	case 'S':{
-		pc+=1;if(map[pc][pf]=='0'){
-		printf("Caiste al agua :(");
-		getchar();
-		return 0;
-		};
-		map[pc][pf]='*';
-		break;
-	};
-	case 'O':{
-		pf-=1;
-		if(map[pc][pf]=='0'){
-		printf("Caiste al agua :(");
-		getchar();
-		return 0;
-		};
-		map[pc][pf]='*';
-		break;
-	};
-	case 'E':{
-		pf+=1;
-		if(map[pc][pf]=='0'){
-		printf("Caiste al agua :(");
-		getchar();
-		return 0;
-		};
-		//esto marcara el recorrido del pirata
-		map[pc][pf]='*';
-		break;
-	};
-	default: printf("no se reconoce ese comando");
-	};
-	//si la posicion del pirata es igual al del tesoro se gana y termina el juego
-	if(map[pc][pf]==map[tc][tf]){
-	printf("encontraste el tesoro");
-	getchar();
-	return 0;
-	};
-	//esto limpiara cmd y nada mas quedara lo que se alla hecho recientemente
-	system("cls");
-	intentos++;
-	};
-	printf("llegaste a los 50 intentos!");
-	return 0;
+void moverPirata(char map[8][8], char direccion, int *pc, int *pf, int *intentos){
+    switch(direccion){
+        case 'N':
+            (*pc)--;
+            break;
+        case 'S':
+            (*pc)++;
+            break;
+        case 'O':
+            (*pf)--;
+            break;
+        case 'E':
+            (*pf)++;
+            break;
+        default:
+            printf("No se reconoce ese comando\n");
+            break;
+    }
+    if(map[*pc][*pf] == '0'){
+        printf("Caiste al agua :(\n");
+        exit(0);
+    }
+    setColor(5,224);
+    map[*pc][*pf] = '*';
+    setColor(15,0);
+    (*intentos)++;
+}
+
+int main(){
+    srand(time(NULL));
+    char map[8][8];
+    int intentos = 0;
+    int pc, pf, tc, tf;
+    
+    generarIsla(map);
+    
+    for(int i = 0; i < 2; i++){
+        int c = (rand() % 6) + 1;
+        int f = (rand() % 6) + 1;
+        if(i == 0){
+            map[c][f] = 'T';
+            tc = c; 
+            tf = f;
+        }
+        else{
+            map[c][f] = 'P';
+            pc = c;
+            pf = f;
+        }
+    }
+    
+    while(intentos < 50){
+        imprimirIsla(map, pc, pf, tc, tf);
+        printf("Te quedan :%d intentos\n",(50-intentos));
+        printf("\nElegir: N, S, E, O\n");
+        char opc;
+        scanf(" %c", &opc);
+        moverPirata(map, opc, &pc, &pf, &intentos);
+        if(map[pc][pf] == map[tc][tf]){
+            printf("¡Encontraste el tesoro!\n");
+            exit(0);
+        }
+        system("cls");
+    }
+    printf("Llegaste a los 50 intentos!\n");
+    return 0;
 }
