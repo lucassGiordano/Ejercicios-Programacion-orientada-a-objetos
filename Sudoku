@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int isNumberRepeated(int sudoku[3][3], int randome) {
+    for (int i = 0; i < 3 ; i++) {
+        for (int j = 0; j < 3 ; j++) {
+            if (sudoku[i][j] == randome) {
+                return 1; // El número está repetido
+            }
+        }
+    }
+    return 0; // El número no se repite
+}
+
+void generateSudoku(int sudoku[3][3]) {
+    // Inicializar el generador de números aleatorios
+    srand(time(NULL));
+
+    // Contador para llevar la cuenta de cuántos números aleatorios se han colocado
+    int randomCount = rand() % 5 + 2; // Entre 2 y 6 números aleatorios
+
+    // Llenar el sudoku con 0s
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            sudoku[i][j] = 0;
+        }
+    } 
+
+    // Colocar números aleatorios
+    while (randomCount > 0) {
+        int row = rand() % 3;
+        int col = rand() % 3;
+        int randome = rand() % 9 + 1;
+        if (sudoku[row][col] == 0 && !isNumberRepeated(sudoku, randome)) { // Asegurarse de no sobrescribir un número existente
+            sudoku[row][col] = randome; // Asignar el número aleatorio
+            randomCount--;
+        }
+    }
+}
+
+void printSudoku(int sudoku[3][3]) {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%d ", sudoku[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int sudoku[3][3];
+    generateSudoku(sudoku);
+    printSudoku(sudoku);
+    return 0;
+}
