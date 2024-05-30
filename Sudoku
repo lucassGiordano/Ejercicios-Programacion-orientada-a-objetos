@@ -56,6 +56,7 @@ void generateSudoku(int sudoku[9][9]) {
     }
 
     // Añadir números adicionales aleatoriamente
+    // hacer variable para dificultad en futuro
     int additionalNumbers = rand() % 11 + 10; // Entre 10 y 20 números aleatorios adicionales
     while (additionalNumbers > 0) {
         int row = rand() % 9;
