@@ -27,6 +27,8 @@ int isNumberRepeated(int sudoku[9][9], int row, int col, int randome) {
     return 0; // El número no se repite
 }
 
+int Marcar(int f, int c){};
+
 void generateSudoku(int sudoku[9][9]) {
     // Inicializar el generador de números aleatorios
     srand(time(NULL));
@@ -56,7 +58,6 @@ void generateSudoku(int sudoku[9][9]) {
     }
 
     // Añadir números adicionales aleatoriamente
-    // hacer variable para dificultad en futuro
     int additionalNumbers = rand() % 11 + 10; // Entre 10 y 20 números aleatorios adicionales
     while (additionalNumbers > 0) {
         int row = rand() % 9;
@@ -79,8 +80,42 @@ void printSudoku(int sudoku[9][9]) {
 }
 
 int main() {
-    int sudoku[9][9];
-    generateSudoku(sudoku);
-    printSudoku(sudoku);
-    return 0;
+	int elec;
+	while(1){
+	printf("Menu sudoku\n");
+	printf("1- Jugar sudoku\n");
+	printf("2- Reglas sudoku\n");
+	
+	scanf("%d",&elec);
+	switch(elec){
+	case 1:{
+		int sudoku[9][9];
+    	generateSudoku(sudoku);
+    	while(1){
+    	printSudoku(sudoku);
+    	 getchar();
+      	 getchar();
+    	};
+		break;
+	}
+    case 2:{
+    	printf("El Sudoku se juega en una cuadrícula de 9x9, dividida en 9 subcuadros de 3x3.\n"
+       "El objetivo es llenar todas las celdas vacías con números del 1 al 9.\n"
+       "Para hacerlo, debes seguir estas reglas:\n"
+       "- Cada fila debe contener los números del 1 al 9, sin repetir.\n"
+       "- Cada columna debe contener los números del 1 al 9, sin repetir.\n"
+       "- Cada subcuadro 3x3 debe contener los números del 1 al 9, sin repetir.\n"
+       "Para jugar Sudoku, comienza con las pistas iniciales que ya están colocadas en la cuadrícula.\n"
+       "Usa estos números como referencia para rellenar las celdas vacías.\n"
+       "Busca celdas vacías y determina qué números del 1 al 9 pueden ir en esas celdas sin violar las reglas de fila, columna y subcuadro 3x3.\n"
+       "Utiliza la deducción lógica para eliminar opciones incorrectas y deducir los números correctos.\n"
+       "Asegúrate de que cada número del 1 al 9 aparezca solo una vez por fila, columna y subcuadro 3x3.\n\n"
+	   "Aprete cualquier tecla para continuar...");
+       getchar();
+       getchar();
+		break;
+	}
+	};
+	system("cls");
+	};
 }
