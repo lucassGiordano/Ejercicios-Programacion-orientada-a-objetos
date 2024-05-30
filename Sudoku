@@ -2,46 +2,75 @@
 #include <stdlib.h>
 #include <time.h>
 
-int isNumberRepeated(int sudoku[3][3], int randome) {
-    for (int i = 0; i < 3 ; i++) {
-        for (int j = 0; j < 3 ; j++) {
+int isNumberRepeated(int sudoku[9][9], int row, int col, int randome) {
+    //hace el recorrido de el arraid verificando cada lugar
+    for (int i = 0; i < 9; i++) {
+    		//se fija si en la fila o columna está repetido el numero
+        if (sudoku[row][i] == randome || sudoku[i][col] == randome) {
+            return 1; // El número está repetido
+        }
+    }
+
+    // Verificar si el número ya está en el subcuadro 3x3
+    // estos dos hacen que nos demos una idea de en que cuadro se encuentran
+    // con la division de el row y col resto de 3 queda numerro de la celda y multiplica por 3 que da el indice de ese cuadro
+    int startRow = (row / 3) * 3;
+    int startCol = (col / 3) * 3;
+    for (int i = startRow; i < startRow + 3; i++) {
+        for (int j = startCol; j < startCol + 3; j++) {
             if (sudoku[i][j] == randome) {
                 return 1; // El número está repetido
             }
         }
     }
+
     return 0; // El número no se repite
 }
 
-void generateSudoku(int sudoku[3][3]) {
+void generateSudoku(int sudoku[9][9]) {
     // Inicializar el generador de números aleatorios
     srand(time(NULL));
 
-    // Contador para llevar la cuenta de cuántos números aleatorios se han colocado
-    int randomCount = rand() % 5 + 2; // Entre 2 y 6 números aleatorios
-
-    // Llenar el sudoku con 0s
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
+    // Llenar el sudoku con 0
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
             sudoku[i][j] = 0;
         }
     } 
 
-    // Colocar números aleatorios
-    while (randomCount > 0) {
-        int row = rand() % 3;
-        int col = rand() % 3;
+    // Colocar al menos un número en cada subcuadro 3x3
+    // Se usa cada cuadro 3x3 por eso suma de 3 en 3
+    for (int startRow = 0; startRow < 9; startRow += 3) {
+        for (int startCol = 0; startCol < 9; startCol += 3) {
+            int randome;
+            int row, col;
+            // se repite hasta que sea valido
+            do {
+                randome = rand() % 9 + 1;
+                row = startRow + rand() % 3;
+                col = startCol + rand() % 3;
+            } while (isNumberRepeated(sudoku, row, col, randome));
+            
+            sudoku[row][col] = randome;
+        }
+    }
+
+    // Añadir números adicionales aleatoriamente
+    int additionalNumbers = rand() % 11 + 10; // Entre 10 y 20 números aleatorios adicionales
+    while (additionalNumbers > 0) {
+        int row = rand() % 9;
+        int col = rand() % 9;
         int randome = rand() % 9 + 1;
-        if (sudoku[row][col] == 0 && !isNumberRepeated(sudoku, randome)) { // Asegurarse de no sobrescribir un número existente
+        if (sudoku[row][col] == 0 && !isNumberRepeated(sudoku, row, col, randome)) { // Asegurarse de no sobrescribir un número existente
             sudoku[row][col] = randome; // Asignar el número aleatorio
-            randomCount--;
+            additionalNumbers--;
         }
     }
 }
 
-void printSudoku(int sudoku[3][3]) {
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
+void printSudoku(int sudoku[9][9]) {
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
             printf("%d ", sudoku[i][j]);
         }
         printf("\n");
@@ -49,7 +78,7 @@ void printSudoku(int sudoku[3][3]) {
 }
 
 int main() {
-    int sudoku[3][3];
+    int sudoku[9][9];
     generateSudoku(sudoku);
     printSudoku(sudoku);
     return 0;
