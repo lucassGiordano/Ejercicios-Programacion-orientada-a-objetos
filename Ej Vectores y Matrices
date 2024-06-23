@@ -1,0 +1,70 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main(){
+	while(1)
+	{
+		int opc;
+		printf("Seleccionar el ejercicio que este buscando:\n");
+		printf("1-Media aritmetica\n");
+		printf("2-Orden contrario\n");
+		printf("3-Dias por mes\n");
+		scanf("%d",&opc);
+		switch(opc)
+		{
+			case 1:
+			{
+				printf("Para calcular el promedio aritmetico tiene que ingresar 4 numeros enteros:\n");
+				int acum[4];
+				float num;
+					for(int i=0;i<4;i++)
+					{
+						printf("ingrese el %dº\n",i+1);
+						scanf("%d",&acum[i]);
+						num +=acum[i];
+					}
+				printf("el promedio es :%.2f\n",num/4);
+				break;
+			}
+			case 2:
+			{
+				printf("Ingresar 5 numeros enteros:\n");
+				int acum[5];
+					for(int i=0;i<5;i++)
+					{
+						printf("ingrese el %dº\n",i+1);
+						scanf("%d",&acum[i]);
+					}
+					printf("El orden contrario es:");
+					for(int i=4;i>=0;i--)
+					{
+						printf("%d ",acum[i]);
+					}
+					printf("\n");
+				break;
+			}
+			case 3:
+			{
+				int diasPorMes[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    			int mes;
+    			printf("Ingrese el numero del mes (1=enero, 12=diciembre): ");
+    			scanf("%d", &mes);
+    			if (mes < 1 || mes > 12) 
+				{
+        			printf("Mes invalido. Por favor ingrese un numero entre 1 y 12.\n");
+    			} 
+				else 
+				{
+        		printf("El mes %d tiene %d dias.\n", mes, diasPorMes[mes - 1]);
+    			}
+    		break;
+			}
+			default :
+			{
+				printf("Opcion invalida");
+			}
+		}
+		getchar();
+		getchar();
+		system("cls");
+	}
+}
