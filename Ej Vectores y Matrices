@@ -1,70 +1,214 @@
-#include<stdio.h>
-#include<stdlib.h>
-int main(){
-	while(1)
-	{
-		int opc;
-		printf("Seleccionar el ejercicio que este buscando:\n");
-		printf("1-Media aritmetica\n");
-		printf("2-Orden contrario\n");
-		printf("3-Dias por mes\n");
-		scanf("%d",&opc);
-		switch(opc)
-		{
-			case 1:
-			{
-				printf("Para calcular el promedio aritmetico tiene que ingresar 4 numeros enteros:\n");
-				int acum[4];
-				float num;
-					for(int i=0;i<4;i++)
-					{
-						printf("ingrese el %dº\n",i+1);
-						scanf("%d",&acum[i]);
-						num +=acum[i];
-					}
-				printf("el promedio es :%.2f\n",num/4);
-				break;
-			}
-			case 2:
-			{
-				printf("Ingresar 5 numeros enteros:\n");
-				int acum[5];
-					for(int i=0;i<5;i++)
-					{
-						printf("ingrese el %dº\n",i+1);
-						scanf("%d",&acum[i]);
-					}
-					printf("El orden contrario es:");
-					for(int i=4;i>=0;i--)
-					{
-						printf("%d ",acum[i]);
-					}
-					printf("\n");
-				break;
-			}
-			case 3:
-			{
-				int diasPorMes[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    			int mes;
-    			printf("Ingrese el numero del mes (1=enero, 12=diciembre): ");
-    			scanf("%d", &mes);
-    			if (mes < 1 || mes > 12) 
-				{
-        			printf("Mes invalido. Por favor ingrese un numero entre 1 y 12.\n");
-    			} 
-				else 
-				{
-        		printf("El mes %d tiene %d dias.\n", mes, diasPorMes[mes - 1]);
-    			}
-    		break;
-			}
-			default :
-			{
-				printf("Opcion invalida");
-			}
-		}
-		getchar();
-		getchar();
-		system("cls");
-	}
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    while (1) {
+        int opc;
+        printf("Seleccionar el ejercicio que este buscando:\n");
+        printf("1 - Media aritmética\n");
+        printf("2 - Orden contrario\n");
+        printf("3 - Días por mes\n");
+        printf("4 - Número de día dentro del año\n");
+        printf("5 - Días restantes hasta el final del año\n");
+        printf("6 - 10 números en orden inverso\n");
+        printf("7 - Números por encima de la media\n");
+        printf("8 - Mayor de 10 números enteros\n");
+        printf("9 - Diferencia de dos vectores en el plano\n");
+        printf("10 - Producto escalar de dos vectores en el espacio\n");
+        printf("11 - Producto vectorial de dos vectores en el espacio\n");
+        printf("12 - Dependencia lineal de dos vectores en el plano\n");
+        printf("13 - Salir\n");
+        scanf("%d", &opc);
+
+        switch(opc) {
+            case 1: {
+                printf("Para calcular el promedio aritmético tiene que ingresar 4 números enteros:\n");
+                int acum[4];
+                float num = 0;
+                for(int i = 0; i < 4; i++) {
+                    printf("Ingrese el %dº número: ", i + 1);
+                    scanf("%d", &acum[i]);
+                    num += acum[i];
+                }
+                printf("El promedio es: %.2f\n", num / 4);
+                break;
+            }
+            case 2: {
+                printf("Ingresar 5 números enteros:\n");
+                int acum[5];
+                for(int i = 0; i < 5; i++) {
+                    printf("Ingrese el %dº número: ", i + 1);
+                    scanf("%d", &acum[i]);
+                }
+                printf("El orden contrario es: ");
+                for(int i = 4; i >= 0; i--) {
+                    printf("%d ", acum[i]);
+                }
+                printf("\n");
+                break;
+            }
+            case 3: {
+                int diasPorMes[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+                int mes;
+                printf("Ingrese el número del mes (1=enero, 12=diciembre): ");
+                scanf("%d", &mes);
+                if (mes < 1 || mes > 12) {
+                    printf("Mes inválido. Por favor ingrese un número entre 1 y 12.\n");
+                } else {
+                    printf("El mes %d tiene %d días.\n", mes, diasPorMes[mes - 1]);
+                }
+                break;
+            }
+            case 4: {
+                int diasPorMes[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+                int mes, dia, diaDelAno = 0;
+                printf("Ingrese el número del mes (1=enero, 12=diciembre): ");
+                scanf("%d", &mes);
+                if (mes < 1 || mes > 12) {
+                    printf("Mes inválido. Por favor ingrese un número entre 1 y 12.\n");
+                    break;
+                }
+                printf("Ingrese el día del mes: ");
+                scanf("%d", &dia);
+                if (dia < 1 || dia > diasPorMes[mes - 1]) {
+                    printf("Día inválido. Por favor ingrese un día entre 1 y %d.\n", diasPorMes[mes - 1]);
+                    break;
+                }
+                for (int i = 0; i < mes - 1; i++) {
+                    diaDelAno += diasPorMes[i];
+                }
+                diaDelAno += dia;
+                printf("El día %d del mes %d es el día número %d del año.\n", dia, mes, diaDelAno);
+                break;
+            }
+            case 5: {
+                int diasPorMes[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+                int mes, dia, diasRestantes = 0, diasPasados = 0;
+                printf("Ingrese el número del mes (1=enero, 12=diciembre): ");
+                scanf("%d", &mes);
+                if (mes < 1 || mes > 12) {
+                    printf("Mes inválido. Por favor ingrese un número entre 1 y 12.\n");
+                    break;
+                }
+                printf("Ingrese el día del mes: ");
+                scanf("%d", &dia);
+                if (dia < 1 || dia > diasPorMes[mes - 1]) {
+                    printf("Día inválido. Por favor ingrese un día entre 1 y %d.\n", diasPorMes[mes - 1]);
+                    break;
+                }
+                for (int i = 0; i < mes - 1; i++) {
+                    diasPasados += diasPorMes[i];
+                }
+                diasPasados += dia;
+                diasRestantes = 365 - diasPasados;
+                printf("Quedan %d días hasta el final del año.\n", diasRestantes);
+                break;
+            }
+            case 6: {
+                int numeros[10];
+                printf("Ingrese 10 números enteros:\n");
+                for (int i = 0; i < 10; i++) {
+                    printf("Ingrese el número %d: ", i + 1);
+                    scanf("%d", &numeros[i]);
+                }
+                printf("Los números en orden inverso son:\n");
+                for (int i = 9; i >= 0; i--) {
+                    printf("%d ", numeros[i]);
+                }
+                printf("\n");
+                break;
+            }
+            case 7: {
+                float numeros[10], suma = 0, media;
+                printf("Ingrese 10 números reales:\n");
+                for (int i = 0; i < 10; i++) {
+                    printf("Ingrese el número %d: ", i + 1);
+                    scanf("%f", &numeros[i]);
+                    suma += numeros[i];
+                }
+                media = suma / 10;
+                printf("La media es %.2f\n", media);
+                printf("Los números por encima de la media son:\n");
+                for (int i = 0; i < 10; i++) {
+                    if (numeros[i] > media) {
+                        printf("%.2f ", numeros[i]);
+                    }
+                }
+                printf("\n");
+                break;
+            }
+            case 8: {
+                int numeros[10], mayor;
+                printf("Ingrese 10 números enteros:\n");
+                for (int i = 0; i < 10; i++) {
+                    printf("Ingrese el número %d: ", i + 1);
+                    scanf("%d", &numeros[i]);
+                }
+                mayor = numeros[0];
+                for (int i = 1; i < 10; i++) {
+                    if (numeros[i] > mayor) {
+                        mayor = numeros[i];
+                    }
+                }
+                printf("El mayor número es: %d\n", mayor);
+                break;
+            }
+            case 9: {
+                float vector1[2], vector2[2], diferencia[2];
+                printf("Ingrese las coordenadas del primer vector (x y): ");
+                scanf("%f %f", &vector1[0], &vector1[1]);
+                printf("Ingrese las coordenadas del segundo vector (x y): ");
+                scanf("%f %f", &vector2[0], &vector2[1]);
+                diferencia[0] = vector1[0] - vector2[0];
+                diferencia[1] = vector1[1] - vector2[1];
+                printf("La diferencia de los vectores es: (%.2f, %.2f)\n", diferencia[0], diferencia[1]);
+                break;
+            }
+            case 10: {
+                float vector1[3], vector2[3], productoEscalar;
+                printf("Ingrese las coordenadas del primer vector (x y z): ");
+                scanf("%f %f %f", &vector1[0], &vector1[1], &vector1[2]);
+                printf("Ingrese las coordenadas del segundo vector (x y z): ");
+                scanf("%f %f %f", &vector2[0], &vector2[1], &vector2[2]);
+                productoEscalar = vector1[0] * vector2[0] + vector1[1] * vector2[1] + vector1[2] * vector2[2];
+                printf("El producto escalar de los vectores es: %.2f\n", productoEscalar);
+                break;
+            }
+            case 11: {
+                float vector1[3], vector2[3], productoVectorial[3];
+                printf("Ingrese las coordenadas del primer vector (x y z): ");
+                scanf("%f %f %f", &vector1[0], &vector1[1], &vector1[2]);
+                printf("Ingrese las coordenadas del segundo vector (x y z): ");
+                scanf("%f %f %f", &vector2[0], &vector2[1], &vector2[2]);
+                productoVectorial[0] = vector1[1] * vector2[2] - vector1[2] * vector2[1];
+                productoVectorial[1] = vector1[2] * vector2[0] - vector1[0] * vector2[2];
+                productoVectorial[2] = vector1[0] * vector2[1] - vector1[1] * vector2[0];
+                printf("El producto vectorial de los vectores es: (%.2f, %.2f, %.2f)\n", productoVectorial[0], productoVectorial[1], productoVectorial[2]);
+                break;
+            }
+            case 12: {
+                float vector1[2], vector2[2];
+                int dependientes;
+                printf("Ingrese las coordenadas del primer vector (x y): ");
+                scanf("%f %f", &vector1[0], &vector1[1]);
+                printf("Ingrese las coordenadas del segundo vector (x y): ");
+                scanf("%f %f", &vector2[0], &vector2[1]);
+                dependientes = (vector1[0] * vector2[1] == vector1[1] * vector2[0]);
+                if (dependientes) {
+                    printf("Los vectores son linealmente dependientes.\n");
+                } else {
+                    printf("Los vectores no son linealmente dependientes.\n");
+                }
+                break;
+            }
+            case 13:
+                return 0;
+            default:
+                printf("Opción inválida\n");
+        }
+        getchar(); // Para consumir el newline residual
+        printf("Presione Enter para continuar...\n");
+        getchar(); // Pausa antes de limpiar la pantalla
+        system("cls"); // Limpiar la pantalla (puede variar dependiendo del sistema operativo)
+    }
 }
