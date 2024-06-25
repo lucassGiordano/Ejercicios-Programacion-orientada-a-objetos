@@ -8,6 +8,10 @@
 int tablero[15][15];
 int posiL[2]={0,0};
 int posiT[2]={0,0};
+int vidasT= 3;
+int vidasL= 3;
+
+int como=0;
 
 void setColor(int textColor, int bgColor) 
 {
@@ -20,7 +24,7 @@ void iniciotablero()
 	{
 		for(int j=0;j<15;j++)
 		{
-			tablero[i][j]='x';
+			tablero[i][j]='X';
 		}
 	}
 	for(int j=0;j<2;j++)
@@ -43,15 +47,40 @@ void printtablero()
 	{
 		for(int j=0;j<15;j++)
 		{
-			printf("%c",tablero[i][j]);
+			printf("%c ",tablero[i][j]);
 		}
 		printf("\n");
 	}
 }
-
+void espe()
+{
+	
+};
+void vervic()
+{
+	if(posiT[1]>=225)
+	{
+		printf("GANADOR TORTUGA \n");
+		getchar();
+	}
+	if(posiL[1]>=225)
+	{
+		printf("GANADOR LIEBRE \n");
+		getchar();
+	}
+	if(vidasT<=0)
+	{
+		printf("GANADOR LIEBRE \n");
+	}
+	if(vidasL<=0)
+	{
+		printf("GANADOR TORTUGA \n");
+	}
+}
+;
 void play(int equipo){
-	int dado= rand()%6;
-	int posi[2];
+	int dado= 1+rand()%6 ;
+	int posi[2]={0,0};
 	if(equipo==1)
 	{
 		posi[0]=posiL[0];
@@ -59,25 +88,32 @@ void play(int equipo){
 	}
 	else if(equipo==2)
 	{
-		posi[0]=posiL[0];
-		posi[1]=posiL[1];
-	} 
-	int direccion=0;
-	if(posi[1]%2==0)
-	{
-		direccion=1;
-	}
-	else
-	{
-		direccion=-1;
+		posi[0]=posiT[0];
+		posi[1]=posiT[1];
 	}
 	
-	dado *=direccion;
-	dado +=posi[0];
-	if(dado>15){
-		posi[1] +=1;
-		posi[0] = dado%15;
+	if(equipo==1)
+	{
+		dado*=(2-como);
+		dado+=como;
 	}
+	posi[1]+= dado;
+	if(tablero[posi[0]][posi[1]]=='C')
+	{
+		como=2;
+	}
+	if(tablero[posi[0]][posi[1]]=='0')
+	{
+		if(equipo==1)
+		{
+			vidasL--;
+		}
+		if(equipo==2)
+		{
+			vidasT--;
+		}
+	}
+	printf("dado : %d\n",dado);
 	if(equipo==1)
 	{
 		tablero[posiL[0]][posiL[1]]='X';
@@ -85,22 +121,29 @@ void play(int equipo){
 		posiL[1]=posi[1];
 		tablero[posiL[0]][posiL[1]]='L';
 	}
-	else if(equipo==2)
+	else 
+	if(equipo==2)
 	{
 		tablero[posiT[0]][posiT[1]]='X';
-		posiL[0]=posi[0];
-		posiL[1]=posi[1];
+		posiT[0]=posi[0];
+		posiT[1]=posi[1];
 		tablero[posiT[0]][posiT[1]]='T';
 	}
+	espe();
+	printf("posicion : %d %d\n",posi[0],posi[1]);
+	vervic();
 }
+
+
 int main()
 {
 	while(1)
 	{
 		srand(time(NULL));
+		setColor(5,40);
 		int opc;
+		printf("Juego liebre y tortuga\n");
 		printf("Opcion 1:jugar\n");
-		printf("Opcion 2:\n");
 		printf("Opcion 0:Salir\n");
 		scanf("%d",&opc);
 		switch(opc)
@@ -109,16 +152,20 @@ int main()
 			{	
 				iniciotablero();
 				printtablero();
-				break;
-			}
-			case 2:
-			{	
-				
+				while(1)
+				{
+				printtablero();
+				int equi=0;
+				printf("Seleccione su equipo 1 liebre 2 tortuga :\n");
+				scanf("%d",&equi);
+				play(equi);
+				printtablero();
+				}
 				break;
 			}
 			case 0:
 			{	
-				
+				return 0;
 				break;
 			}
 			default:
